@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerControl : MonoBehaviour
 {
     Rigidbody2D playerRB;
+    Animator playerAnimator;
     [SerializeField] float moveSpeed = 10f;
     [SerializeField] float jumpForce = 10f;
     bool canMoveHorizontally = true;
@@ -14,6 +15,7 @@ public class PlayerControl : MonoBehaviour
     {
         playerRB = GetComponent<Rigidbody2D>();
         playerRB.constraints = RigidbodyConstraints2D.FreezeRotation;
+        playerAnimator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -31,17 +33,23 @@ public class PlayerControl : MonoBehaviour
             {
                 //playerRB.AddForce(new Vector2(moveSpeed, 0));
                 transform.Translate(new Vector2(moveSpeed * Time.deltaTime, 0));
+                playerAnimator.SetBool("Running", true);
             }
+            else { playerAnimator.SetBool("Running", false); }
         }
-        if (Input.GetKey(KeyCode.A))
+        else if (Input.GetKey(KeyCode.A))
         {
             transform.localScale = new Vector2(-1, 1);
             if (canMoveHorizontally)
             {
                 //playerRB.AddForce(new Vector2(-moveSpeed, 0));
                 transform.Translate(new Vector2(-moveSpeed * Time.deltaTime, 0));
+                playerAnimator.SetBool("Running", true);
             }
+            else { playerAnimator.SetBool("Running", false); }
         }
+        else { playerAnimator.SetBool("Running", false); }
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             playerRB.velocity = new Vector2(playerRB.velocity.x, 0);
