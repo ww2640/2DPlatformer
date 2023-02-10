@@ -7,7 +7,7 @@ public class SlimeBehavior : MonoBehaviour
     [SerializeField] float moveSpeed = 5f;
     bool canMove = true;
     int directionOffset = 1;
-    public bool Canmove { get { return canMove; } set { canMove = value; } }
+    public bool CanMove { get { return canMove; } set { canMove = value; } }
     void Start()
     {
         
